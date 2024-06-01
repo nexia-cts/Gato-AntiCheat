@@ -25,7 +25,13 @@ public class AABBMixin {
 
     @Shadow @Final public double maxZ;
 
-    // Vanilla code is messy and buggy so here's this
+    /**
+     *  Credits to <a href="https://github.com/Blumbo/CTS-AntiCheat/tree/master">Blumbo's CTS Anti-Cheat</a> <br>
+     *  <h4>Licensed under MIT</h4> <br>
+     *  Vanilla code is messy and buggy so here's this
+     */
+
+
     @Inject(method = "getNearestPointTo", cancellable = true, at = @At("HEAD"))
     private void getNearestPointTo(Vec3 vec3, CallbackInfoReturnable<Vec3> cir) {
         double x = Mth.clamp(vec3.x, this.minX, this.maxX);

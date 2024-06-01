@@ -20,10 +20,24 @@ public class ServerGamePacketListenerMixin {
     @Shadow public ServerPlayer player;
     @Unique Entity targetEntity;
 
+    /**
+     *  Credits to <a href="https://github.com/Blumbo/CTS-AntiCheat/tree/master">Blumbo's CTS Anti-Cheat</a> <br>
+     *  <h4>Licensed under MIT</h4> <br>
+     *  Stores the target for use later.
+     */
+
+
     @Inject(method = "handleInteract", at = @At("HEAD"))
     private void handleInteract(ServerboundInteractPacket packet, CallbackInfo ci) {
         targetEntity = packet.getTarget(player.getLevel());
     }
+
+    /**
+     *  Credits to <a href="https://github.com/Blumbo/CTS-AntiCheat/tree/master">Blumbo's CTS Anti-Cheat</a> <br>
+     *  <h4>Licensed under MIT</h4> <br>
+     *  If return value is smaller than player reach the interaction will be a success, otherwise pass
+     */
+
 
     // If return value is smaller than player reach the interaction will be a success, otherwise pass
     @Redirect(method = "handleInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/phys/Vec3;distanceToSqr(Lnet/minecraft/world/phys/Vec3;)D"))
