@@ -57,6 +57,7 @@ public class GatoAntiCheat implements ModInitializer {
 
             return InteractionResult.PASS;
         });
+
     }
 
 }
