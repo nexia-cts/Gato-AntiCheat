@@ -6,6 +6,13 @@ import net.minecraft.world.phys.AABB;
 import java.util.HashMap;
 import java.util.UUID;
 
+/**
+ *  Credits to <a href="https://github.com/Blumbo/CTS-AntiCheat/tree/master">Blumbo's CTS Anti-Cheat</a> <br>
+ *  <h4>Licensed under MIT</h4> <br>
+ *  Stores the previous positions of a player
+ */
+
+
 public class PlayerData {
 
     public AABB[] previousPositions;

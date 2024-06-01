@@ -4,6 +4,13 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+/**
+ *  Credits to <a href="https://github.com/Blumbo/CTS-AntiCheat/tree/master">Blumbo's CTS Anti-Cheat</a> <br>
+ *  <h4>Licensed under MIT</h4> <br>
+ *  General Combat improvement utility used across several classes
+ */
+
+
 public class CombatUtil {
 
     // The amount of ticks players' previous locations are saved for
