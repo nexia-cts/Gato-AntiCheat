@@ -1,6 +1,7 @@
 package com.nexia.gatoanticheat.players;
 
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -20,25 +21,28 @@ public class CombatUtil {
     public static int savedLocationTicks = 9;
 
     // If target is not in reach (possibly due to ping) check if target's previous locations are in reach
-    public static boolean allowReach(ServerPlayer attacker, ServerPlayer target) {
+    public static boolean allowReach(ServerPlayer attacker, Entity entityTarget) {
         Vec3 eyePosition = attacker.getEyePosition(0);
         float padding = 0.75f;
         double reach = attacker.getCurrentAttackReach(1f) + padding;
-        if (!attacker.canSee(target)) reach = 2.5;
+        if (!attacker.canSee(entityTarget)) reach = 2.5;
         reach *= reach;
 
-        if (canReach(eyePosition, target.getBoundingBox(), reach)) return true;
+        if (canReach(eyePosition, entityTarget.getBoundingBox(), reach)) return true;
 
-        PlayerData victimData = PlayerData.get(target);
-        for (AABB boundingBox : victimData.previousPositions) {
-            if (boundingBox == null) continue;
-            if (canReach(eyePosition, boundingBox, reach)) return true;
+        if(entityTarget instanceof ServerPlayer target) {
+            PlayerData victimData = PlayerData.get(target);
+            for (AABB boundingBox : victimData.previousPositions) {
+                if (boundingBox == null) continue;
+                if (canReach(eyePosition, boundingBox, reach)) return true;
+            }
         }
+
 
         return false;
     }
 
-    private static boolean canReach(Vec3 eyePosition, AABB boundingBox, double reach) {
+    public static boolean canReach(Vec3 eyePosition, AABB boundingBox, double reach) {
         return eyePosition.distanceToSqr(boundingBox.getNearestPointTo(eyePosition)) < reach;
     }
 

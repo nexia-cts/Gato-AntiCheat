@@ -1,8 +1,12 @@
 package com.nexia.gatoanticheat;
 
+import com.nexia.gatoanticheat.players.CombatUtil;
 import com.nexia.gatoanticheat.players.PlayerData;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
 
 public class GatoAntiCheat implements ModInitializer {
 
@@ -33,6 +37,17 @@ public class GatoAntiCheat implements ModInitializer {
             PlayerData.removePlayerData(handler.player);
         }));
 
+
+        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+            if (player instanceof ServerPlayer serverPlayer) {
+                if (!CombatUtil.allowReach(serverPlayer, entity)) {
+                    PlayerData.get(serverPlayer).hitsBlocked++;
+                    return InteractionResult.FAIL;
+                }
+            }
+
+            return InteractionResult.PASS;
+        });
     }
 
 }

@@ -18,6 +18,8 @@ public class PlayerData {
     public AABB[] previousPositions;
     public int positionIndex;
 
+    public int hitsBlocked;
+
     public PlayerData() {
         this.previousPositions = new AABB[CombatUtil.savedLocationTicks];
         this.positionIndex = 0;

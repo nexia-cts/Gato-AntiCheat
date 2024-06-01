@@ -1,6 +1,7 @@
 package com.nexia.gatoanticheat.mixin;
 
 import com.nexia.gatoanticheat.players.CombatUtil;
+import com.nexia.gatoanticheat.players.PlayerData;
 import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -43,15 +44,18 @@ public class ServerGamePacketListenerMixin {
     @Redirect(method = "handleInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/phys/Vec3;distanceToSqr(Lnet/minecraft/world/phys/Vec3;)D"))
     private double getAttackDistance(Vec3 instance, Vec3 vec3) {
 
+        /*
         // If target is not a player do vanilla code
         if (!(targetEntity instanceof ServerPlayer target)) {
             Vec3 eyePosition = player.getEyePosition(0);
             return (eyePosition).distanceToSqr(targetEntity.getBoundingBox().getNearestPointTo(eyePosition));
         }
+         */
 
-        if (CombatUtil.allowReach(player, target)) {
+        if (CombatUtil.allowReach(player, targetEntity)) {
             return 0;
         } else {
+            PlayerData.get(player).hitsBlocked++;
             return Integer.MAX_VALUE;
         }
 
