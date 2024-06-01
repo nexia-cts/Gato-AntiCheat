@@ -1,16 +1,14 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.blumbo.ctsanticheat.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "package": "com.nexia.gatoanticheat.mixin",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AABBMixin",
     "LivingEntityMixin",
     "PlayerListMixin",
     "ServerGamePacketListenerMixin",
     "ServerPlayerMixin"
-  ],
-  "client": [
   ],
   "injectors": {
     "defaultRequire": 1

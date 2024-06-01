@@ -1,4 +1,4 @@
-package net.blumbo.ctsanticheat.players;
+package com.nexia.gatoanticheat.players;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.AABB;

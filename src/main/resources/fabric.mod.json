@@ -1,24 +1,31 @@
 {
   "schemaVersion": 1,
-  "id": "ctsanticheat",
+  "id": "gatoanticheat",
   "version": "${version}",
-  "name": "CTS AntiCheat",
-  "description": "",
-  "authors": ["Blumbo"],
-  "contact": {},
+  "name": "Gato AntiCheat",
+  "description": "An AntiCheat for the Nexia CTS Server.",
+  "authors": [
+    "Blumbo",
+    "NotCoded"
+  ],
+  "contact": {
+    "homepage": "https://nexia.dev",
+    "sources": "https://github.com/nexia-cts/Gato-AntiCheat"
+  },
   "license": "MIT",
   "environment": "server",
   "entrypoints": {
     "main": [
-      "net.blumbo.ctsanticheat.CtsAntiCheat"
+      "com.nexia.gatoanticheat.GatoAntiCheat"
     ]
   },
   "mixins": [
-    "ctsanticheat.mixins.json"
+    "gatoanticheat.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.21",
     "minecraft": "1.16.3-combat.8.c",
-    "fabric": "*"
+    "fabric": ">=0.42.0",
+    "java": ">=21"
   }
 }

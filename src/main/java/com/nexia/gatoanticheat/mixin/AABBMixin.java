@@ -1,4 +1,4 @@
-package net.blumbo.ctsanticheat.mixin;
+package com.nexia.gatoanticheat.mixin;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.AABB;

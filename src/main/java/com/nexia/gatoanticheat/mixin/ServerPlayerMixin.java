@@ -1,6 +1,6 @@
-package net.blumbo.ctsanticheat.mixin;
+package com.nexia.gatoanticheat.mixin;
 
-import net.blumbo.ctsanticheat.players.CombatUtil;
+import com.nexia.gatoanticheat.players.CombatUtil;
 import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -1,6 +1,6 @@
-package net.blumbo.ctsanticheat.mixin;
+package com.nexia.gatoanticheat.mixin;
 
-import net.blumbo.ctsanticheat.players.CombatUtil;
+import com.nexia.gatoanticheat.players.CombatUtil;
 import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -18,8 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ServerGamePacketListenerMixin {
 
     @Shadow public ServerPlayer player;
-    @Unique
-    Entity targetEntity;
+    @Unique Entity targetEntity;
 
     @Inject(method = "handleInteract", at = @At("HEAD"))
     private void handleInteract(ServerboundInteractPacket packet, CallbackInfo ci) {
@@ -31,12 +30,11 @@ public class ServerGamePacketListenerMixin {
     private double getAttackDistance(Vec3 instance, Vec3 vec3) {
 
         // If target is not a player do vanilla code
-        if (!(targetEntity instanceof ServerPlayer)) {
+        if (!(targetEntity instanceof ServerPlayer target)) {
             Vec3 eyePosition = player.getEyePosition(0);
             return (eyePosition).distanceToSqr(targetEntity.getBoundingBox().getNearestPointTo(eyePosition));
         }
 
-        ServerPlayer target = (ServerPlayer) targetEntity;
         if (CombatUtil.allowReach(player, target)) {
             return 0;
         } else {
