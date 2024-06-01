@@ -1,5 +1,6 @@
 package com.nexia.gatoanticheat;
 
+import com.nexia.gatoanticheat.events.PlayerDetectionEvent;
 import com.nexia.gatoanticheat.players.CombatUtil;
 import com.nexia.gatoanticheat.players.PlayerData;
 import net.fabricmc.api.ModInitializer;
@@ -41,7 +42,7 @@ public class GatoAntiCheat implements ModInitializer {
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             if (player instanceof ServerPlayer serverPlayer) {
                 if (!CombatUtil.allowReach(serverPlayer, entity)) {
-                    PlayerData.get(serverPlayer).hitsBlocked++;
+                    PlayerDetectionEvent.REACH.invoker().onReachDetection(player, entity);
                     return InteractionResult.FAIL;
                 }
             }

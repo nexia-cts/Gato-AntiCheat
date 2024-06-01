@@ -1,7 +1,7 @@
 package com.nexia.gatoanticheat.mixin;
 
+import com.nexia.gatoanticheat.events.PlayerDetectionEvent;
 import com.nexia.gatoanticheat.players.CombatUtil;
-import com.nexia.gatoanticheat.players.PlayerData;
 import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -55,10 +55,9 @@ public class ServerGamePacketListenerMixin {
         if (CombatUtil.allowReach(player, targetEntity)) {
             return 0;
         } else {
-            PlayerData.get(player).hitsBlocked++;
+            PlayerDetectionEvent.REACH.invoker().onReachDetection(player, targetEntity);
             return Integer.MAX_VALUE;
         }
-
     }
 
 }
