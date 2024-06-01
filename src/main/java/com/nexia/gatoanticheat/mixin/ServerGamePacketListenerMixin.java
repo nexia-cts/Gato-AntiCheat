@@ -2,6 +2,8 @@ package com.nexia.gatoanticheat.mixin;
 
 import com.nexia.gatoanticheat.events.PlayerDetectionEvent;
 import com.nexia.gatoanticheat.players.CombatUtil;
+import net.minecraft.network.protocol.game.ServerboundCommandSuggestionPacket;
+import net.minecraft.network.protocol.game.ServerboundContainerClickPacket;
 import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -60,4 +62,70 @@ public class ServerGamePacketListenerMixin {
         }
     }
 
+    @Unique private static final String[] ABUSABLE_SEQUENCES = { "@", "[", "nbt", "=", "{", "}", "]" };
+
+    @Inject(method = "handleCustomCommandSuggestions", at = @At("HEAD"), cancellable = true)
+    private void fixSuggestionsCrash(ServerboundCommandSuggestionPacket serverboundCommandSuggestionPacket, CallbackInfo ci) {
+        final String text = serverboundCommandSuggestionPacket.getCommand();
+        int length = text.length();
+
+        if(this.player.hasPermissions(2)) return;
+
+        if (length > 256) {
+            ci.cancel();
+            return;
+        }
+
+        if (length > 64) {
+            final int index = text.indexOf(' ');
+            if (index == -1 || index >= 64) {
+                ci.cancel();
+                return;
+            }
+        }
+
+        for (String sequence : ABUSABLE_SEQUENCES) {
+            if (text.contains(sequence)) {
+                ci.cancel();
+                return;
+            }
+        }
+    }
+
+    @Inject(method = "handleContainerClick", cancellable = true, at = @At("HEAD"))
+    private void fixContainerCrash(ServerboundContainerClickPacket clickPacket, CallbackInfo ci) {
+        int containerId = clickPacket.getContainerId();
+        int slot = clickPacket.getSlotNum();
+
+        if (containerId < 0 || containerId > 10 && containerId != 40 && containerId != 99) {
+            ci.cancel();
+            return;
+        }
+
+        if (slot != -999 && slot != -1) {
+            if (slot < 0) {
+                ci.cancel();
+            }
+            return;
+        }
+
+        if (containerId == 40) {
+            ci.cancel();
+            return;
+        }
+
+        switch (clickPacket.getClickType()) {
+            case SWAP, PICKUP_ALL -> ci.cancel();
+            case THROW -> {
+                if (slot == -1) {
+                    ci.cancel();
+                }
+            }
+            case QUICK_MOVE -> {
+                if (slot == -999) {
+                    ci.cancel();
+                }
+            }
+        }
+    }
 }

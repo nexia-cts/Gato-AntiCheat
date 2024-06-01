@@ -41,10 +41,13 @@ public class GatoAntiCheat implements ModInitializer {
 
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             if (player instanceof ServerPlayer serverPlayer) {
+                /*
                 if (!serverPlayer.swinging) {
                     PlayerDetectionEvent.NOSWING.invoker().onNoSwingDetection(player, entity);
                     return InteractionResult.FAIL;
                 }
+
+                 */
 
                 if (!CombatUtil.allowReach(serverPlayer, entity)) {
                     PlayerDetectionEvent.REACH.invoker().onReachDetection(player, entity);
