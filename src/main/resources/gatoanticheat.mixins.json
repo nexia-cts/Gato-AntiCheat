@@ -6,7 +6,6 @@
   "mixins": [
     "AABBMixin",
     "LivingEntityMixin",
-    "PlayerMixin",
     "ServerGamePacketListenerMixin",
     "ServerPlayerMixin"
   ],
