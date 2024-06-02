@@ -49,6 +49,11 @@ public class GatoAntiCheat implements ModInitializer {
 
                  */
 
+                if(!CombatUtil.validAngle(serverPlayer, entity)) {
+                    PlayerDetectionEvent.BAD_ATTACK_ANGLE.invoker().onBadAttackAngleDetection(player, entity);
+                    return InteractionResult.FAIL;
+                }
+
                 if (!CombatUtil.allowReach(serverPlayer, entity)) {
                     PlayerDetectionEvent.REACH.invoker().onReachDetection(player, entity);
                     return InteractionResult.FAIL;
@@ -57,7 +62,6 @@ public class GatoAntiCheat implements ModInitializer {
 
             return InteractionResult.PASS;
         });
-
     }
 
 }
