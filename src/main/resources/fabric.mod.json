@@ -14,6 +14,7 @@
   },
   "license": "MIT",
   "environment": "server",
+  "accessWidener": "gatoanticheat.accesswidener",
   "entrypoints": {
     "main": [
       "com.nexia.gatoanticheat.GatoAntiCheat"
