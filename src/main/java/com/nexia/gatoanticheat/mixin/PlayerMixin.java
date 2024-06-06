@@ -1,8 +1,6 @@
 package com.nexia.gatoanticheat.mixin;
 
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.EntityDamageSource;
-import net.minecraft.world.effect.MobEffects;
+import com.nexia.gatoanticheat.events.PlayerDetectionEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,14 +17,11 @@ public abstract class PlayerMixin extends LivingEntity {
         super(entityType, level);
     }
 
-    @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
+    @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;crit(Lnet/minecraft/world/entity/Entity;)V"))
     public void detectCriticals(Entity entity, CallbackInfo ci) {
-        boolean bl = !this.onClimbable() && !this.isInWater() && !this.hasEffect(MobEffects.BLINDNESS) && !this.isPassenger() && entity instanceof LivingEntity;
-        boolean bl3 = bl && this.fallDistance > 0.0F && !this.onGround;
-        EntityDamageSource entityDamageSource = DamageSource.playerAttack((Player)(Object)this).setCritSpecial(bl3);
-
-        if (this.onGround && entityDamageSource.isCritSpecial) {
-            System.out.println("Player using criticals");
+        System.out.println(this.fallDistance);
+        if(this.fallDistance >= 512) {
+            PlayerDetectionEvent.CRITICALS.invoker().onCriticalsDetection((Player) (Object) this, entity);
         }
     }
 }

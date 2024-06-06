@@ -4,7 +4,6 @@ import com.mojang.authlib.GameProfile;
 import com.nexia.gatoanticheat.players.CombatUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,12 +27,5 @@ public abstract class ServerPlayerMixin extends Player {
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
         CombatUtil.setPosition((ServerPlayer)(Object)this);
-    }
-
-    @Inject(method = "crit", at = @At("HEAD"))
-    public void criticalsCheck(Entity entity, CallbackInfo ci) {
-        if (this.isOnGround()) {
-            System.out.println("criticals detected not cool");
-        }
     }
 }

@@ -62,4 +62,8 @@ public class CombatUtil {
         return original;
     }
 
+
+    public static boolean validAngle(ServerPlayer player, Entity target) {
+        return player.canSee(target);
+    }
 }
