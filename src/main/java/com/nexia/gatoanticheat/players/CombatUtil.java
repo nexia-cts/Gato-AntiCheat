@@ -18,7 +18,7 @@ public class CombatUtil {
     // A somewhat good rule for the optimal amount of ticks is ceiling(x/50ms) + 2
     // where x is the highest ping (in milliseconds) the anticheat takes into account.
     // E.g. if the highest "accepted" ping is 151ms-200ms this number would be 6, for 251-300ms it would be 8 etc.
-    public static int savedLocationTicks = 4;
+    public static int savedLocationTicks = 5;
 
     // If target is not in reach (possibly due to ping) check if target's previous locations are in reach
     public static boolean allowReach(ServerPlayer attacker, Entity entityTarget) {
