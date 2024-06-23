@@ -23,7 +23,7 @@ public class CombatUtil {
     // If target is not in reach (possibly due to ping) check if target's previous locations are in reach
     public static boolean allowReach(ServerPlayer attacker, Entity entityTarget) {
         Vec3 eyePosition = attacker.getEyePosition(0);
-        float padding = 0.5f;
+        float padding = 1.75f;
         double reach = attacker.getCurrentAttackReach(1f) + padding;
         if (!attacker.canSee(entityTarget)) reach = 2.5;
         reach *= reach;
