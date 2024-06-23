@@ -3,7 +3,6 @@ package com.nexia.gatoanticheat.mixin;
 import com.nexia.gatoanticheat.events.PlayerDetectionEvent;
 import com.nexia.gatoanticheat.players.CombatUtil;
 import net.minecraft.network.protocol.game.ServerboundCommandSuggestionPacket;
-import net.minecraft.network.protocol.game.ServerboundContainerClickPacket;
 import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -92,6 +91,7 @@ public class ServerGamePacketListenerMixin {
         }
     }
 
+    /*
     @Inject(method = "handleContainerClick", cancellable = true, at = @At("HEAD"))
     private void fixContainerCrash(ServerboundContainerClickPacket clickPacket, CallbackInfo ci) {
         int containerId = clickPacket.getContainerId();
@@ -128,4 +128,6 @@ public class ServerGamePacketListenerMixin {
             }
         }
     }
+
+     */
 }
