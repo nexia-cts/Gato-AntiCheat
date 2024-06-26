@@ -91,6 +91,20 @@ public class ServerGamePacketListenerMixin {
         }
     }
 
+    // Thank you, our lord and saviour
+    //   _____  _          _____            _
+    // |  __ \(_)        / ____|          | |
+    // | |__) |_ _______| |     ___   ___ | | _____ _   _
+    // |  _  /| |_  / _ \ |    / _ \ / _ \| |/ / _ \ | | |
+    // | | \ \| |/ /  __/ |___| (_) | (_) |   <  __/ |_| |
+    // |_|  \_\_/___\___|\_____\___/ \___/|_|\_\___|\__, |
+    //                                               __/ |
+    //                                              |___/
+    @Redirect(method = "handleInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;getCurrentAttackReach(F)F"))
+    public float redirectReachLonger(ServerPlayer playerEntity, float f) {
+        return playerEntity.getCurrentAttackReach(f) + CombatUtil.padding;
+    }
+
     /*
     @Inject(method = "handleContainerClick", cancellable = true, at = @At("HEAD"))
     private void fixContainerCrash(ServerboundContainerClickPacket clickPacket, CallbackInfo ci) {

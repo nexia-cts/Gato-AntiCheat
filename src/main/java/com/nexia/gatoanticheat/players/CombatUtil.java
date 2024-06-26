@@ -20,10 +20,17 @@ public class CombatUtil {
     // E.g. if the highest "accepted" ping is 151ms-200ms this number would be 6, for 251-300ms it would be 8 etc.
     public static int savedLocationTicks = 5;
 
+    // The amount of extra reach the player gets
+    // e.g. player is 3 blocks away client side but is 4 blocks away server side
+    // (assuming padding is 1 block) the hit goes through
+
+    // 0.25 is vanilla padding
+    // e.g. 0.75 is actually 1 block of padding
+    public static final float padding = 0.75f;
+
     // If target is not in reach (possibly due to ping) check if target's previous locations are in reach
     public static boolean allowReach(ServerPlayer attacker, Entity entityTarget) {
         Vec3 eyePosition = attacker.getEyePosition(0);
-        float padding = 0.75f;
         double reach = attacker.getCurrentAttackReach(1f) + padding;
         if (!attacker.canSee(entityTarget)) reach = 2.5;
         reach *= reach;
