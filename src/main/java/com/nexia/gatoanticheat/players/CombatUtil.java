@@ -18,7 +18,7 @@ public class CombatUtil {
     // A somewhat good rule for the optimal amount of ticks is ceiling(x/50ms) + 2
     // where x is the highest ping (in milliseconds) the anticheat takes into account.
     // E.g. if the highest "accepted" ping is 151ms-200ms this number would be 6, for 251-300ms it would be 8 etc.
-    public static int savedLocationTicks = 5;
+    public static int savedLocationTicks = 3;
 
     // The amount of extra reach the player gets
     // e.g. player is 3 blocks away client side but is 4 blocks away server side
@@ -65,7 +65,7 @@ public class CombatUtil {
 
     // Decrease invulnerability ticks for non-fast hits to prevent no-regs for fast attacks
     public static int modifyInvulnerableTicks(int original) {
-        if (original >= 4) return original - 1;
+        if (original >= 4) return original - 3;
         return original;
     }
 
