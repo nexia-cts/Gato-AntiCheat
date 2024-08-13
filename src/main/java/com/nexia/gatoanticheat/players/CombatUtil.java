@@ -65,7 +65,7 @@ public class CombatUtil {
 
     // Decrease invulnerability ticks for non-fast hits to prevent no-regs for fast attacks
     public static int modifyInvulnerableTicks(int original) {
-        if (original >= 4) return original - 1;
+        if (original >= 4) return original - 2;
         return original;
     }
 
