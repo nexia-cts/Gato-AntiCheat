@@ -26,7 +26,7 @@ public class CombatUtil {
 
     // 0.25 is vanilla padding
     // e.g. 0.75 is actually 1 block of padding
-    public static final float padding = 0.75f;
+    public static final float padding = 1.75f;
 
     // If target is not in reach (possibly due to ping) check if target's previous locations are in reach
     public static boolean allowReach(ServerPlayer attacker, Entity entityTarget) {
